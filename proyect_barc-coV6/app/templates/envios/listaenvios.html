@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Barc-Co - Lista Envíos</title>
+</head>
+<body>
+    <header>
+        {% include 'header.html' %}
+    </header>
+    
+    <main class="main-container">
+        <div class="container">
+            <div class="header-section">
+                <h1>Lista de Envíos</h1>
+                <p>Seguimiento de los envios ya registrados</p>
+                <a href="{{ url_for('envios.registroenvio') }}" class="btn-nuevo-envio">+ Nuevo Envío</a>
+            </div>
+
+            <div class="table-container">
+                <table class="envios-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Descripción</th>
+                            <th>Estado</th>
+                            <th>Origen</th>
+                            <th>Destino</th>
+                            <th>Barco</th>
+                            <th>Encargado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for envio in envios %}
+                        <tr>
+                            <td class="id-cell">#{{ envio.id_envio }}</td>
+                            <td class="descripcion-cell">{{ envio.descripcion }}</td>
+                            <td>
+                                <span class="estado-badge estado-{{ envio.estado|lower|replace(' ', '-') }}">
+                                    {{ envio.estado }}
+                                </span>
+                            </td>
+                            <td>{{ envio.origen }}</td>
+                            <td>{{ envio.destino }}</td>
+                            <td>
+                                {% if envio.fk_barcos %}
+                                {{ envio.fk_barcos }}
+                                {% else %}
+                                <span class="no-asignado">No asignado</span>
+                                {% endif %}
+                            </td>
+                            <td>#{{ envio.fk_encargado_envios }}</td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="8" class="no-data">
+                                <div class="no-envios">
+                                    <h3>No hay envíos registrados</h3>
+                                    <p>Comienza registrando tu primer envío en el sistema</p>
+                                    <a href="{{ url_for('envios.registroenvio') }}" class="btn-primary">Registrar Primer Envío</a>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

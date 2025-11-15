@@ -9,6 +9,7 @@ db = Blueprint("db", __name__, template_folder="templates")
 main = Blueprint("main", __name__, template_folder="templates")
 program = Blueprint("program", __name__, template_folder="templates")
 
+
 # LISTA DE USUARIOS 
 @db.route("/users")
 def users():
@@ -32,12 +33,30 @@ def main_program_view(name_user):
 @main.route("/profile")
 @login_required
 def profile():
-    return render_template("profile.html", user_id=current_user.id)
+    
+    if not hasattr(current_user, 'tipo') or not current_user.tipo:
+        return "Error: usuario sin tipo definido", 500
+    
+    tipo = current_user.tipo.strip().lower()
+
+
+    if  tipo == "administrador":
+        return render_template("profileadmin.html", user_id=current_user.id)
+    elif tipo == "encargado de envios":
+        return render_template("envios/profileenvios.html", user_id=current_user.id)
+    elif tipo == "encargado de barcos":
+        return render_template("barcos/profilebarcos.html", user_id=current_user.id)
+    elif tipo == "cliente":
+        return render_template("index.html", user_id=current_user.id)
+    else:
+        return 'Rol desconocido'
 
 # FORMULARIO (GET)
 @main.route("/form", methods=["GET"])
 def form():
     return render_template("form.html")
+
+
 
 # PROCESAR FORMULARIO (POST)
 

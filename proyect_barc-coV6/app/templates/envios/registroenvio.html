@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>BARC-CO • Registro de Envío</title>
+</head>
+<body>
+    <header>
+        {% include 'header.html' %}
+    </header>
+    
+    <main>
+        <form class="formlog2" action="{{ url_for('envios.registroenvio') }}" method="POST">
+            <h1 id="hregistro">Registro de Envío</h1>
+            
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }}">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            
+            <div class="form-grid">
+                <div class="campo">
+                    <label for="descripcion">Descripción del Envío:</label>
+                    <textarea name="descripcion" id="descripcion" placeholder="Ingrese la descripción del envío..." required></textarea>
+                </div>
+                
+                <div class="campo">
+                    <label for="estado">Estado:</label>
+                    <select name="estado" id="estado" required>
+                        <option value="">Seleccionar estado</option>
+                        <option value="Pendiente">Pendiente</option>
+                        <option value="En proceso">En proceso</option>
+                        <option value="En tránsito">En tránsito</option>
+                        <option value="Entregado">Entregado</option>
+                        <option value="Cancelado">Cancelado</option>
+                    </select>
+                </div>
+                
+                <div class="campo">
+                    <label for="origen">Puerto de Origen:</label>
+                    <input type="text" name="origen" id="origen" placeholder="Ej: Puerto de Buenos Aires" required />
+                </div>
+                
+                <div class="campo">
+                    <label for="destino">Puerto de Destino:</label>
+                    <input type="text" name="destino" id="destino" placeholder="Ej: Puerto de Montevideo" required />
+                </div>
+                
+                <div class="campo">
+                    <label for="fk_barco">Número de Barco:</label>
+                    <input type="number" name="fk_barco" id="fk_barco" placeholder="Ej: 12345" required/>
+                </div>
+                
+                <div class="campo full-width">
+                    <a href="{{ url_for('main.profile') }}" class="btn btn-secondary">Volver al Panel</a>
+                    <button type="submit" class="btn btn-primary">Registrar Envío</button>
+                </div>
+            </div>
+        </form>
+    </main>
+
+    <footer>
+        {% include 'footer.html' %}
+    </footer>
+</body>
+</html>
