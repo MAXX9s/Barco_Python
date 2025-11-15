@@ -12,9 +12,9 @@
     </header>
     
     <main>
-        <form class="formlog2" action="{{ url_for('envios.registroenvio') }}" method="POST">
-            <h1 id="hregistro">Registro de Envío</h1>
-            
+        <form class="formregistroenvio" action="{{ url_for('envios.registroenvio') }}" method="POST">
+            <h1 id="hregistroenvio">Registro de Envío</h1>
+            <p id="pregistroenvio">Complete los siguientes datos del envío</p>
             {% with messages = get_flashed_messages(with_categories=true) %}
                 {% if messages %}
                     {% for category, message in messages %}
@@ -23,43 +23,44 @@
                 {% endif %}
             {% endwith %}
             
-            <div class="form-grid">
-                <div class="campo">
+            <div id="form-gridenvio">
+                <div class="campoenvio">
                     <label for="descripcion">Descripción del Envío:</label>
                     <textarea name="descripcion" id="descripcion" placeholder="Ingrese la descripción del envío..." required></textarea>
                 </div>
                 
-                <div class="campo">
+                <div class="campoenvio">
                     <label for="estado">Estado:</label>
                     <select name="estado" id="estado" required>
                         <option value="">Seleccionar estado</option>
                         <option value="Pendiente">Pendiente</option>
                         <option value="En proceso">En proceso</option>
-                        <option value="En tránsito">En tránsito</option>
                         <option value="Entregado">Entregado</option>
                         <option value="Cancelado">Cancelado</option>
                     </select>
                 </div>
                 
-                <div class="campo">
+                <div class="campoenvio">
                     <label for="origen">Puerto de Origen:</label>
                     <input type="text" name="origen" id="origen" placeholder="Ej: Puerto de Buenos Aires" required />
                 </div>
                 
-                <div class="campo">
+                <div class="campoenvio">
                     <label for="destino">Puerto de Destino:</label>
                     <input type="text" name="destino" id="destino" placeholder="Ej: Puerto de Montevideo" required />
                 </div>
                 
-                <div class="campo">
+                <div class="campoenvio">
                     <label for="fk_barco">Número de Barco:</label>
                     <input type="number" name="fk_barco" id="fk_barco" placeholder="Ej: 12345" required/>
                 </div>
                 
-                <div class="campo full-width">
-                    <a href="{{ url_for('main.profile') }}" class="btn btn-secondary">Volver al Panel</a>
-                    <button type="submit" class="btn btn-primary">Registrar Envío</button>
+                <div>
+                    <button type="submit" class="botonregistrar">Registrar Envío</button>
                 </div>
+            </div>
+            <div class="volver">
+                <a href="{{ url_for('main.profile') }}" id="botonvolver">⟵ Volver al panel</a>
             </div>
         </form>
     </main>

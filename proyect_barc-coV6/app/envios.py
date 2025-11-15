@@ -24,7 +24,7 @@ def registroenvio():
             origen = request.form.get("origen", "").strip()
             destino = request.form.get("destino", "").strip()
             fk_encargado_envios = current_user.id  # ← USA EL ID DEL USUARIO LOGUEADO
-            fk_barcos = request.form.get("barco", "").strip()
+            fk_barco = request.form.get("barco", "").strip()
 
             if not descripcion or not origen or not destino:
                 flash("Descripción, origen y destino son obligatorios", "error")
@@ -34,9 +34,9 @@ def registroenvio():
             cursor = conn.cursor()
             cursor.execute(""" 
                 INSERT INTO envio 
-                (descripcion, estado, origen, destino, fk_encargado_envios, fk_barcos)
+                (descripcion, estado, origen, destino, fk_encargado_envios, fk_barco)
                 VALUES (?, ?, ?, ?, ?, ?)
-            """, (descripcion, estado, origen, destino, fk_encargado_envios, fk_barcos))
+            """, (descripcion, estado, origen, destino, fk_encargado_envios, fk_barco))
             conn.commit()
             conn.close()
 

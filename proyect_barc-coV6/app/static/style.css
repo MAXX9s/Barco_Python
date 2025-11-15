@@ -621,7 +621,6 @@ h2{
     margin-top: 2rem;
 }
 
-
 #envios1, #envios2, #envios3 {
     background-color: white;
     border-radius: 15px;
@@ -637,6 +636,45 @@ h2{
 #envios1:hover, #envios2:hover, #envios3:hover {
     transform: translateY(-5px) scale(1.02);
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+/*Admin*/
+
+#sectionlogin {
+    margin: auto;
+    width: 90%;
+    padding: 20px;
+    margin-top: 10rem;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+#h1profile1 {
+    text-align: center;
+    margin-bottom: 40px;
+    color: #333;
+    font-size: 2rem;
+}
+
+#parentadmin {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 30px; 
+    max-width: 1200px;
+    margin: 0 auto;
+    margin-bottom: 5rem;
+    margin-top: 2rem;
+}
+
+#div1, #div2, #div3, #div4 {
+    background-color: white;
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out;
+    height: 200px; 
+    display: flex;
+    flex-direction: column;
 }
 
 .contenido {
@@ -661,19 +699,21 @@ h2{
 
 .linksadmin {
     display: inline-block;
-    background-color: #3498db;
+    background-color: #333333;
     color: white;
     padding: 10px 20px;
-    border-radius: 5px;
+    border-radius: 10px;
     text-decoration: none;
     font-weight: bold;
-    transition: background-color 0.3s ease;
-    align-self: flex-start;
+    transition: all 0.2s ease-in-out; 
+    align-items: center;
 }
 
 .linksadmin:hover {
-    background-color: #2980b9;
-    transform: translateX(5px);
+    background-color: transparent;
+    color: black;
+    border: 2px solid #333333;
+    font-family: "Roboto", sans-serif;
 }
 
 
@@ -685,26 +725,26 @@ h2{
   margin-top: 15px;
 }
 
-.linksadmin{
+.linksenvio{
   text-decoration: none;
-  padding: 15px 30px;
+  padding: 10px 30px;
   background-color: #333333;
   color: white;
   font-family: "Roboto", sans-serif;
   border-radius: 10px;
   border: 2px solid #333333;
-  transition: all 0.2s ease-in-out;
-
+  transition: all 0.2s ease-in-out; 
+  align-self: flex-start;
 }
 
-.linksadmin:hover{
+.linksenvio:hover{
   background-color: transparent;
   color: black;
   border: 2px solid #333333;
   font-family: "Roboto", sans-serif;
 }
 
-.contenido{
+.contenidoadmin{
   display: flex;
   justify-content: center;
   align-items: center;
@@ -713,7 +753,7 @@ h2{
   gap: 20px;
 }
 
-.pcontenido{
+.pcontenidoadmin{
     font-family: "Roboto", sans-serif;
     color: #8A8A8A;
 }
@@ -846,6 +886,7 @@ h2{
     text-transform: uppercase;
     letter-spacing: 0.5px;
     display: inline-block;
+    border: 1px solid #1a1a1a;
 }
 
 .estado-pendiente {
@@ -914,22 +955,111 @@ h2{
 
 /*Registro de Envio*/
 
-.camposvolver{
-  height:50px;
-  width: 300px;
-  margin-top: 20px;
-  border: 2px solid #1a1a1a;
-  border-radius: 10px;
-  cursor: pointer;
-  background-color: #657268;
-  font-size: 1em;
-  font-weight: bold;
-  transition: background 0.3s ease, transform 0.2s ease;
+.formregistroenvio{
+  background-color: #2c3e50;
+  max-width: 1000px;
+  padding: 50px 30px;
+  margin: 10rem auto 8rem auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 15px;
 }
-.camposvolver:hover{
+
+#hregistroenvio{
+  color: white;
+  font-family: sans-serif;
+  text-align: center;
+  font-size: 2.4rem;
+  margin-top: 0px;
+
+}
+
+#pregistroenvio{
+  color: white;
+  border-bottom: 1px solid white;
+  padding-bottom: 2px;
+}
+
+#form-gridenvio{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 25px 30px;
+  margin-top: 20px;
+  width: 100%;
+  flex: 1;
+}
+
+.campoenvio{
+    display: flex;
+  flex-direction: column;
+}
+  
+.formregistroenvio input, textarea,
+select {
+  margin-top: 6px;
+  width: 100%;
+  height: 40px;
+  border: 1px solid #1a1a1a;
+  font-size: 0.85em;
+  font-family: sans-serif;
+  border-radius: 8px;
+  padding-left: 8px;
+}
+
+textarea{
+  height: 80px !important;
+  padding-top: 5px;
+}
+
+.formregistroenvio label{
+  font-size: 0.9em;
+  color: white;
+  font-weight: 600;
+}
+
+.formregistroenvio button {
+  height: 45px;
+  width: 100%;
+  margin-top: 24px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9em;
+  font-weight: bold;
   border: 2px solid #1a1a1a;
-  background-color: #3b4741 ; 
-  transform: scale(1.05);
+  background-color: #09bace;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.formregistroenvio button:hover {
+  background-color: #349de4;
+  transform: translateY(-3px);
+}
+
+#botonvolver{
+  text-decoration: none;
+  background-color: whitesmoke;
+  color: black;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.8em;
+  font-weight: bold;
+  width: 130px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.volver{
+    margin-top: auto;
+    justify-content: start;
+    padding: 20px 0;
+}
+
+.select option {
+  color: #333333;
+  font-weight: 700;
 }
 
 
