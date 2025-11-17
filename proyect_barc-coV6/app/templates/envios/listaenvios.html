@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Barc-Co - Lista Envíos</title>
+</head>
+<body>
+    <header>
+        {% include 'header.html' %}
+    </header>
+    
+    <main class="main-container">
+        <div class="container">
+            <div class="header-section">
+                <h1>Lista de Envíos</h1>
+                <p>Seguimiento de los envios ya registrados</p>
+                <a href="{{ url_for('envios.registroenvio') }}" class="btn-nuevo-envio">+ Nuevo Envío</a>
+            </div>
+
+            <div class="table-container">
+                <table class="envios-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Descripción</th>
+                            <th>Estado</th>
+                            <th>Origen</th>
+                            <th>Destino</th>
+                            <th>Barco</th>
+                            <th>Encargado ID</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for envio in envios %}
+                        <tr>
+                            <td class="id-cell">#{{ envio.id_envio }}</td>
+                            <td class="descripcion-cell">{{ envio.descripcion }}</td>
+                            <td>
+                                <form action="/listaenvios" method="POST" class="estado-form">
+                                    <input type="hidden" name="id_envio" value="{{ envio.id_envio }}">
+                                    <select name="estado_nuevo" 
+                                            class="estado-select estado-{{ envio.estado|lower|replace(' ', '-') }}"
+                                            onchange="this.form.submit()">
+                                        <option value="pendiente" {% if envio.estado == 'pendiente' %}selected{% endif %}>
+                                            Pendiente
+                                        </option>
+                                        <option value="en_proceso" {% if envio.estado == 'en_proceso' %}selected{% endif %}>
+                                            En Proceso
+                                        </option>
+                                        <option value="entregado" {% if envio.estado == 'entregado' %}selected{% endif %}>
+                                            Entregado
+                                        </option>
+                                        <option value="cancelado" {% if envio.estado == 'cancelado' %}selected{% endif %}>
+                                            Cancelado
+                                        </option>
+                                    </select>
+                                </form>
+                            </td>
+                            <td>{{ envio.origen }}</td>
+                            <td>{{ envio.destino }}</td>
+                            <td>
+                                {% if envio.fk_barco %}
+                                {{ envio.fk_barco }}
+                                {% else %}
+                                <span class="no-asignado">No asignado</span>
+                                {% endif %}
+                            </td>
+                            <td>#{{ envio.fk_encargado_envios }}</td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="8" class="no-data">
+                                <div class="no-envios">
+                                    <h3>No hay envíos registrados</h3>
+                                    <p>Comienza registrando tu primer envío en el sistema</p>
+                                    <a href="{{ url_for('envios.registroenvio') }}" class="btn-primary">Registrar Primer Envío</a>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

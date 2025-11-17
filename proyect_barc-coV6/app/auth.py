@@ -30,19 +30,27 @@ def close_db(exc):
     if db: db.close()
 
 class User(UserMixin):
-    def __init__(self, id_usuario, nombre, contrasena=None):
+    def __init__(self, id_usuario, nombre, contrasena, tipo_usuario):
         self.id = id_usuario
         self.username = nombre
         self.password_hash = contrasena
+        self.tipo = tipo_usuario.strip().lower() if tipo_usuario else "cliente"
 
     @staticmethod
     def from_row(row):
-        return User(row["id_usuario"], row["nombre"], row["contrasena"]) if row else None
+        if row:
+            return User(
+                row["id_usuario"], 
+                row["nombre"], 
+                row["contrasena"], 
+                row["tipo_usuario"]
+            )
+        return None
 
 @login_manager.user_loader
 def load_user(user_id):
     row = get_db().execute(
-        "SELECT id_usuario, nombre, contrasena FROM usuario WHERE id_usuario = ?",
+        "SELECT id_usuario, nombre, contrasena, tipo_usuario FROM usuario WHERE id_usuario = ?",
         (user_id,)
     ).fetchone()
     return User.from_row(row)
@@ -50,6 +58,7 @@ def load_user(user_id):
 # --- Vistas GET (formularios) ---
 @auth.get("/login")
 def login_get():
+    logout_user()
     return render_template("login.html")
 
 @auth.get("/register")
@@ -77,7 +86,7 @@ def register_post():
     get_db().commit()
 
     row = get_db().execute(
-        "SELECT id_usuario, nombre, contrasena FROM usuario WHERE nombre = ?",
+        "SELECT id_usuario, nombre, contrasena, tipo_usuario FROM usuario WHERE nombre = ?",
         (username,)
     ).fetchone()
     login_user(User.from_row(row))
@@ -91,7 +100,7 @@ def login_post():
     password = request.form["password"]
 
     row = get_db().execute(
-        "SELECT id_usuario, nombre, contrasena FROM usuario WHERE nombre = ?",
+        "SELECT id_usuario, nombre, contrasena, tipo_usuario FROM usuario WHERE nombre = ?",
         (username,)
     ).fetchone()
     if not row:
@@ -152,13 +161,16 @@ def callback():
         return "Error al obtener datos del usuario", 400
 
     db = get_db()
+    
+    
     row = db.execute(
-        "SELECT id_usuario, nombre FROM usuario WHERE email = ?",
+        "SELECT id_usuario, nombre, contrasena, tipo_usuario FROM usuario WHERE email = ?",
         (email,)
     ).fetchone()
 
     if not row:
-        db.execute(
+        
+        cursor = db.execute(
             "INSERT INTO usuario (nombre, apellido, contrasena, email, fecha_nacimiento, direccion, telefono, tipo_usuario) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
             (
                 name,
@@ -168,18 +180,30 @@ def callback():
                 "1900-01-01", 
                 "",  
                 0,  
-                "cliente"  
+                "Cliente" 
             )
         )
         db.commit()
+        
+        
         row = db.execute(
-            "SELECT id_usuario, nombre FROM usuario WHERE email = ?",
-            (email,)
+            "SELECT id_usuario, nombre, contrasena, tipo_usuario FROM usuario WHERE id_usuario = ?",
+            (cursor.lastrowid,)
         ).fetchone()
 
-    user = User(row["id_usuario"], row["nombre"])
+   
+    user = User.from_row(row)
     login_user(user)
     return redirect(url_for("main.profile"))
+
+@auth.route("/")
+def index():
+    
+    if current_user.is_authenticated:
+        nombre = current_user.username
+    else:
+        nombre = "Invitado"
+    return render_template("index.html", nombre=nombre)
 
 
 
