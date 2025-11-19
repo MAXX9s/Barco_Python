@@ -41,6 +41,7 @@
                                 <th>Hora Salida</th>
                                 <th>Impuesto</th>
                                 <th>Tarifa</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -55,6 +56,10 @@
                                 <td>{{ b['hora_zarpe'] or '' }}</td>
                                 <td>{{ b['Impuesto'] or '' }}</td>
                                 <td>{{ b['tarifa'] or '' }}</td>
+                                  <td>
+                               
+                                <a href="/eliminarbarco/{{ b.id_barco }}" class="buttonel">Eliminar</a>
+                            </td>
                             </tr>
                             {% else %}
                             <tr>

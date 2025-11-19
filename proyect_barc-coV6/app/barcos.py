@@ -122,3 +122,23 @@ def registrosalidabarco():
     conn.close()
     
     return render_template('barcos/registrosalidabarco.html', barcos_en_puerto=barcos_en_puerto)
+
+@barcos_bp.route("/eliminarbarco/<int:id_barco>")
+@login_required
+@requiere_encargado_barcos
+def eliminarbarco(id_barco):
+    try:
+    
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        
+        cursor.execute("DELETE FROM barco WHERE id_barco = ?", (id_barco,))
+        conn.commit()
+        conn.close()
+        
+        flash("Barco eliminado exitosamente", "success")
+        return redirect(url_for('barcos.listabarcos'))
+        
+    except Exception as e:
+        flash(f"Error al eliminar el Barco: {str(e)}", "error")
+        return redirect(url_for('barcos.listabarcos'))
