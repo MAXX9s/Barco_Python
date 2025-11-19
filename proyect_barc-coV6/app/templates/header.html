@@ -5,7 +5,7 @@
 
     <ul id="menu">
         <li><a href="{{ url_for('main.index') }}">Home</a></li>
-        <li><a href="{{ url_for('main.index') }}">About us</a></li>
+        <li><a href="{{ url_for('main.index') }}#aboutus">About us</a></li>
 
         {% if current_user.is_authenticated %}
             <li><a href="{{ url_for('main.profile') }}">Perfil ({{ current_user.username }})</a></li>
