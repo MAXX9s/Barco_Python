@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <title>BARC-CO • Login</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  
 </head>
 <body>
   <header>
@@ -23,9 +24,9 @@
                   <br>
                   <input name="password" type="password" required>
                 </div>
-                <br>
-                <button type="submit">Ingresar</button>
-                <p>o</p>
+                <button  class="logbut" type="submit">Ingresar</button>
+                <hr>
+                 
                 <a href="{{ url_for('auth.login_google') }}" class="boton-google">
                   <img src="../static/img/google.png" alt="Google" width="24" height="24"> Iniciar sesión con Google
                 </a>
@@ -36,6 +37,6 @@
     <footer>
       {% include 'footer.html' %}
     </footer>
-  
+    
 </body>
 </html>

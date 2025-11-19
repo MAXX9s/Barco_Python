@@ -82,7 +82,7 @@ def register_post():
     get_db().execute("""
         INSERT INTO usuario (nombre, contrasena, fecha_nacimiento, direccion, telefono, tipo_usuario)
         VALUES (?, ?, ?, ?, ?, ?)
-    """, (username, hashed_pw, "2000-01-01", "Sin dirección", 0, "Usuario"))
+    """, (username, hashed_pw, "2000-01-01", "Sin dirección", 0, "Cliente"))
     get_db().commit()
 
     row = get_db().execute(

@@ -22,23 +22,24 @@
     <div id="parentadmin">
     <div id="div1">
       <div class="contenidoadmin">
-        <h2>Gestión de Usuarios </h2>
-        <p class="pcontenidoadmin">Adminstrá las credenciasles de los distintos empleados</p>
-        <a href="" class="linksadmin">Gestionar ➔</a>
+        <h2>Registro de Usuarios </h2>
+        <p class="pcontenidoadmin">Crea usuarios para clientes o empleados</p>
+        <a href="{{ url_for('admin.gestionusuarios') }}" class="linksadmin">Registrar ➔</a>
+       
       </div>
     </div>
     <div id="div2">
       <div class="contenidoadmin">
           <h2>Lista de Usuarios </h2>
           <p class="pcontenidoadmin">Consultá la información de los usuarios registrados en el sistema</p>
-          <a href="" class="linksadmin">Ver usuarios ➔</a>
+          <a href="{{ url_for('admin.listausuarios') }}" class="linksadmin">Ver usuarios ➔</a>
       </div>
     </div>
     <div id="div3">
       <div class="contenidoadmin">
         <h2>Registro de Envíos </h2>
         <p class="pcontenidoadmin">Revisá el estado y los detalles de los envíos</p>
-        <a href="" class="linksadmin">Ver envíos ➔</a>
+        <a href="{{ url_for('envios.listaenvios') }}" class="linksadmin">Ver envíos ➔</a>
       </div>
     </div>
     <div id="div4">
@@ -60,6 +61,6 @@
     
 
   
-    
+      <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>

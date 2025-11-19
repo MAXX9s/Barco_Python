@@ -41,7 +41,7 @@ def profile():
 
 
     if  tipo == "administrador":
-        return render_template("profileadmin.html", user_id=current_user.id)
+        return render_template("admin/profileadmin.html", user_id=current_user.id)
     elif tipo == "encargado de envios":
         return render_template("envios/profileenvios.html", user_id=current_user.id)
     elif tipo == "encargado de barcos":

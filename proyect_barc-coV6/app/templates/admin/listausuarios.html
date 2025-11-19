@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Barc-Co - Lista de Usuarios</title>
+</head>
+<body>
+    <header>
+        {% include 'header.html' %}
+    </header>
+    
+    <main class="main-container">
+        <div class="container">
+            <div class="header-section">
+                <h1>Lista de Usuarios</h1>
+                
+                <a href="{{ url_for('admin.gestionusuarios') }}" class="btn-nuevo-envio">+ Nuevo Usuario</a>
+            </div>
+
+            <div class="table-container">
+                <table class="envios-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Email</th>
+                            <th>Fecha de Nacimientos</th>
+                            <th>Direccion</th>
+                            <th>Telefono</th>
+                            <th>Tipo de Usuario</th>
+                            <th>Fecha Registro</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for usuario in usuarios %}
+                        <tr>
+                            <td class="id-cell">#{{ usuario.id_usuario }}</td>
+                            <td class="descripcion-cell">{{ usuario.nombre }} {{ usuario.apellido or '' }}</td>
+                            <td>{{ usuario.email }}</td>
+                            <td>{{ usuario.fecha_nacimiento }}</td> 
+                            <td>{{ usuario.direccion }}</td>
+                            <td>{{ usuario.telefono }}</td>
+                        <td>
+    <form action="{{ url_for('admin.modificarusuario') }}" method="POST" class="estado-form">
+        <input type="hidden" name="id_usuario" value="{{ usuario.id_usuario }}">
+        <select name="tipo_nuevo" 
+                class="estado-select"
+                onchange="this.form.submit()">
+            <option value="cliente" {% if usuario.tipo_usuario == 'cliente' %}selected{% endif %}>
+                Cliente
+            </option>
+            <option value="encargado de envios" {% if usuario.tipo_usuario == 'encargado de envios' %}selected{% endif %}>
+                Encargado de Envíos
+            </option>
+            <option value="encargado de barcos" {% if usuario.tipo_usuario == 'encargado de barcos' %}selected{% endif %}>
+                Encargado de Barcos
+            </option>
+            <option value="administrador" {% if usuario.tipo_usuario == 'administrador' %}selected{% endif %}>
+                Administrador
+            </option>
+        </select>
+    </form>
+</td>
+                            <td>
+                               
+                                <a href="/eliminarusuario/{{ usuario.id_usuario }}" class="buttonel">Eliminar</a>
+                            </td>
+
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="5" class="no-data">
+                                <div class="no-envios">
+                                    <h3>No hay usuarios registrados</h3>
+                                    <p>Comienza registrando el primer usuario en el sistema</p>
+                                    <a href="{{ url_for('admin.gestionusuarios') }}" class="btn-primary">Registrar Primer Usuario</a>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+      <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
