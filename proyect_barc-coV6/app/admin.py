@@ -83,7 +83,7 @@ def modificarusuario():
             return redirect(request.referrer)
         
        
-        tipos_validos = ["administrador", "encargado de envios", "encargado de barcos", "cliente"]
+        tipos_validos = ["Administrador", "Encargado de Envios", "Encargado de Barcos", "Cliente"]
         if nuevo_tipo and nuevo_tipo not in tipos_validos:
             flash("Tipo de usuario no válido", "error")
             return redirect(request.referrer)

@@ -70,7 +70,7 @@ def submit():
     telephone   = request.form.get("telephone", "").strip()
     address     = request.form.get("address", "").strip()
     password    = request.form.get("password", "").strip()
-    tipo_usuario= request.form.get("type_user", "").strip() or "Usuario"
+    tipo_usuario= request.form.get("type_user", "").strip() or "Cliente"
 
     if not name or not password:
         return "Faltan campos obligatorios (name / password)", 400
