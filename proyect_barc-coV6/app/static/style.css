@@ -1118,7 +1118,7 @@ textarea{
 /*Footer*/
 
 .footer{
-  background-color: rgb(255, 255, 255, 0.8);
+  background-color: rgb(0, 80, 104);
   padding: 40px 50px;
 }
 
@@ -1300,5 +1300,30 @@ textarea{
   opacity: 0.8;
 }
 
+/*Mensajes Flash*/
 
+.flash-container {
+    margin-bottom: 20px;
+    display: flex;
+    margin: 0 auto;
+    width: 60%;
+}
 
+.flash {
+    padding: 12px 16px;
+    border-radius: 6px;
+    margin-bottom: 10px;
+    font-size: 0.95rem;
+}
+
+.flash.error {
+    background-color: #ff4a4a;
+    color: white;
+    border: 1px solid #d60000;
+}
+
+.flash.success {
+    background-color: #4caf50;
+    color: white;
+    border: 1px solid #1e7e34;
+}
