@@ -1,9 +1,11 @@
 from flask import Blueprint, abort, render_template, request, redirect, url_for
 from flask_login import UserMixin, login_user, logout_user, login_required, current_user
 import sqlite3
+from app.db import get_db, close_db
 from flask import g, current_app
 from . import login_manager, bcrypt
 import requests
+from app.db import get_db_connection 
 
 
 from dotenv import load_dotenv
@@ -18,16 +20,6 @@ REDIRECT_URI = os.getenv("GOOGLE_REDIRECT_URI")
 
 auth = Blueprint("auth", __name__, template_folder="templates")
 
-def get_db():
-    if "db" not in g:
-        g.db = sqlite3.connect(current_app.config["DATABASE"])
-        g.db.row_factory = sqlite3.Row
-    return g.db
-
-@auth.teardown_app_request
-def close_db(exc):
-    db = g.pop("db", None)
-    if db: db.close()
 
 class User(UserMixin):
     def __init__(self, id_usuario, nombre, contrasena, tipo_usuario):
@@ -82,7 +74,7 @@ def register_post():
     get_db().execute("""
         INSERT INTO usuario (nombre, contrasena, fecha_nacimiento, direccion, telefono, tipo_usuario)
         VALUES (?, ?, ?, ?, ?, ?)
-    """, (username, hashed_pw, "2000-01-01", "Sin dirección", 0, "Cliente"))
+    """, (username, hashed_pw, "2000-01-01", "Sin dirección", 0, "cliente"))
     get_db().commit()
 
     row = get_db().execute(
@@ -180,7 +172,7 @@ def callback():
                 "1900-01-01", 
                 "",  
                 0,  
-                "Cliente" 
+                "cliente" 
             )
         )
         db.commit()

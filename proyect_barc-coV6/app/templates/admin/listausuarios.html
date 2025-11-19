@@ -48,16 +48,16 @@
         <select name="tipo_nuevo" 
                 class="estado-select"
                 onchange="this.form.submit()">
-            <option value="Cliente" {% if usuario.tipo_usuario == 'Cliente' %}selected{% endif %}>
+            <option value="cliente" {% if usuario.tipo_usuario == 'cliente' %}selected{% endif %}>
                 Cliente
             </option>
-            <option value="Encargado de Envios" {% if usuario.tipo_usuario == 'Encargado de Envios' %}selected{% endif %}>
+            <option value="encargado de envios" {% if usuario.tipo_usuario == 'encargado de envios' %}selected{% endif %}>
                 Encargado de Envíos
             </option>
-            <option value="Encargado de Barcos" {% if usuario.tipo_usuario == 'Encargado de Barcos' %}selected{% endif %}>
+            <option value="encargado de barcos" {% if usuario.tipo_usuario == 'encargado de barcos' %}selected{% endif %}>
                 Encargado de Barcos
             </option>
-            <option value="Administrador" {% if usuario.tipo_usuario == 'Administrador' %}selected{% endif %}>
+            <option value="administrador" {% if usuario.tipo_usuario == 'administrador' %}selected{% endif %}>
                 Administrador
             </option>
         </select>

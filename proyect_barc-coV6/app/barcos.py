@@ -7,7 +7,7 @@ barcos_bp = Blueprint('barcos', __name__, template_folder='templates')
 
 def requiere_encargado_barcos(func):
     def wrapper(*args, **kwargs):
-        if not hasattr(current_user, 'tipo') or current_user.tipo.strip().lower() != 'encargado de barcos':
+        if not hasattr(current_user, 'tipo') or current_user.tipo.strip().lower()  not in ('encargado de envios', 'administrador'):
             return "No autorizado", 403
         return func(*args, **kwargs)
     wrapper.__name__ = func.__name__
