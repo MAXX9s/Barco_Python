@@ -196,7 +196,7 @@ def callback():
                 "1900-01-01", 
                 "",  
                 0,  
-                "Cliente" 
+                "cliente" 
             )
         )
         db.commit()
