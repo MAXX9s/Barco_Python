@@ -1,4 +1,4 @@
-from flask import Blueprint, abort, render_template, request, redirect, url_for
+from flask import Blueprint, abort, render_template, request, redirect, url_for, flash
 from flask_login import UserMixin, login_user, logout_user, login_required, current_user
 import sqlite3
 from flask import g, current_app
@@ -71,26 +71,36 @@ def register_post():
     username = request.form["username"].strip()
     password = request.form["password"]
 
+    if not username or not password:
+        flash("Todos los campos son obligatorios", "error")
+        return render_template("register.html")
+
     exists = get_db().execute(
         "SELECT 1 FROM usuario WHERE nombre = ?",
         (username,)
     ).fetchone()
+
     if exists:
-        return "El usuario ya existe", 400
+        flash("El usuario ya existe", "error")
+        return render_template("register.html")
 
     hashed_pw = bcrypt.generate_password_hash(password).decode("utf-8")
     get_db().execute("""
         INSERT INTO usuario (nombre, contrasena, fecha_nacimiento, direccion, telefono, tipo_usuario)
         VALUES (?, ?, ?, ?, ?, ?)
-    """, (username, hashed_pw, "2000-01-01", "Sin dirección", 0, "Cliente"))
+    """, (username, hashed_pw, "2000-01-01", "Sin dirección", 0, "cliente"))
     get_db().commit()
+
+    flash("Cuenta creada exitosamente", "success")
 
     row = get_db().execute(
         "SELECT id_usuario, nombre, contrasena, tipo_usuario FROM usuario WHERE nombre = ?",
         (username,)
     ).fetchone()
+
     login_user(User.from_row(row))
     return redirect(url_for("main.index"))
+
 
 
 #Login normal
@@ -103,18 +113,24 @@ def login_post():
         "SELECT id_usuario, nombre, contrasena, tipo_usuario FROM usuario WHERE nombre = ?",
         (username,)
     ).fetchone()
+
     if not row:
-        return abort(404) 
+        flash("Usuario no encontrado", "error")
+        return render_template("login.html")
 
     user = User.from_row(row)
+
     stored = user.password_hash or ""
     is_bcrypt = stored.startswith("$2")
     ok = bcrypt.check_password_hash(stored, password) if is_bcrypt else (stored == password)
+
     if not ok:
-        return "Usuario o contraseña incorrectos", 401
+        flash("Usuario o contraseña incorrectos", "error")
+        return render_template("login.html")
 
     login_user(user)
     return redirect(url_for("main.profile"))
+
 
 
 

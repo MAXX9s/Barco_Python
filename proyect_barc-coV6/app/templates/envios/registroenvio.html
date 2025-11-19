@@ -12,6 +12,15 @@
     </header>
     
     <main>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+              {% if messages %}
+                <div class="flash-container">
+                  {% for category, message in messages %}
+                    <div class="flash {{ category }}">{{ message }}</div>
+                  {% endfor %}
+                </div>
+              {% endif %}
+            {% endwith %}
         <form class="formregistroenvio" action="{{ url_for('envios.registroenvio') }}" method="POST">
             <h1 id="hregistroenvio">Registro de Envío</h1>
             <p id="pregistroenvio">Complete los siguientes datos del envío</p>

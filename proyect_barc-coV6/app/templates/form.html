@@ -10,6 +10,15 @@
     <header>    {% include 'header.html' %}
 </header>
 <main>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+              {% if messages %}
+                <div class="flash-container">
+                  {% for category, message in messages %}
+                    <div class="flash {{ category }}">{{ message }}</div>
+                  {% endfor %}
+                </div>
+              {% endif %}
+            {% endwith %}
   <form class="formlog2" action="{{ url_for('main.submit') }}" method="POST">
     <h1 id="hregistro">Registrarse</h1>
     <div class="form-grid">

@@ -10,8 +10,18 @@
     <header>
         {% include 'header.html' %}
     </header>
+
     
     <main class="main-container">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+              {% if messages %}
+                <div class="flash-container">
+                  {% for category, message in messages %}
+                    <div class="flash {{ category }}">{{ message }}</div>
+                  {% endfor %}
+                </div>
+              {% endif %}
+            {% endwith %}
         <div class="container">
             <div class="header-section">
                 <h1>Lista de Envíos</h1>
