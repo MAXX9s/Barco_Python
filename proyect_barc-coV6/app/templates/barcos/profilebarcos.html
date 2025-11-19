@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+        <title>BARC-CO - Perfil</title>
+</head>
+<body>
+      <header>
+    {% include 'header.html' %}
+  </header>
+<section id="sectionenvios">
+    <h1 id="h1profile1">Bienvenido {{ current_user.username }}, seleccioná la opción deseada: </h1>
+    <div id="parentenvios">
+        <div id="envios1">
+            <div class="contenido">
+                <h2>Registrar Barco</h2>
+                <p class="pcontenido">Registra cada uno de los barcos nuevos del puerto</p>
+                <a href="{{ url_for('barcos.registrobarco') }}" class="linksenvio">Registrar ➔</a>
+            </div>
+        </div>
+        <div id="envios2">
+            <div class="contenido">
+                <h2>Registrar Salida</h2>
+                <p class="pcontenido">Registra la salida del barco con tarifa, impuesto, fecha y hora de zarpe</p>
+                <a href="{{ url_for('barcos.registrosalidabarco') }}" class="linksenvio">Registrar Salida ➔</a>
+            </div>
+        </div>
+        <div id="envios3">
+            <div class="contenido">
+                <h2>Ver Barcos</h2>
+                <p class="pcontenido">Accedé al registro completo de barcos para poder ver en detalle cada embarcación</p>
+                <a href="{{ url_for('barcos.listabarcos') }}" class="linksenvio">Ver Barcos ➔</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+    </body>
+</html>

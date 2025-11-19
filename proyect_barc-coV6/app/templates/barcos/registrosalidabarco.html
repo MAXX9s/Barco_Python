@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>BARC-CO • Registro de Salida</title>
+</head>
+<body>
+    <header>
+        {% include 'header.html' %}
+    </header>
+    
+    <main>
+    <form class="formregistroenvio" action="{{ url_for('barcos.registrosalidabarco') }}" method="POST">
+            <h1 id="hregistroenvio">Salida de Barcos</h1>
+            <p id="pregistroenvio">Complete los siguientes datos del Barco para su salida</p>
+            <div id="form-gridenvio">
+                <div class="campoenvio">
+                    <label for="id_barco">Barco (en puerto):</label>
+                    <select name="id_barco" id="id_barco" required>
+                        <option value="">-- Seleccioná un barco --</option>
+                        {%- if barcos_en_puerto is defined and barcos_en_puerto -%}
+                            {%- for b in barcos_en_puerto -%}
+                                <option value="{{ b['id_barco'] }}">#{{ b['id_barco'] }} — {{ b['nombre'] }} (Arribó: {{ b['fecha_arribo'] }} {{ b['hora_arribo'] }})</option>
+                            {%- endfor -%}
+                        {%- else -%}
+                            <option value="">No hay barcos en puerto</option>
+                        {%- endif -%}
+                    </select>
+                </div>
+                
+              <div class="campoenvio">
+                    <label for="tarifa">Tarifa (opcional):</label>
+                    <input type="number" name="tarifa" id="tarifa" step="0.01" placeholder="Ej: 20000" required>
+                </div>
+                
+                <div class="campoenvio">
+                    <label for="Impuesto">Impuesto (opcional):</label>
+                    <input type="number" name="Impuesto" id="Impuesto" step="0.01" placeholder="Ej: 3000" required>
+                </div>
+                
+                 <div class="campoenvio">
+                    <label for="fecha_zarpe_select">Fecha de zarpe:</label>
+                    <input type="text" name="fecha_zarpe" id="fecha_zarpe_select" placeholder="AAAA-MM-DD" required>
+                </div>
+                
+                 <div class="campoenvio">
+                    <label for="hora_zarpe_select">Hora de zarpe:</label>
+                    <input type="text" name="hora_zarpe" id="hora_zarpe_select" placeholder="HH:MM:SS" required>
+                </div>
+                
+               
+                
+                <div>
+                    <button type="submit" class="botonregistrar">Registrar salida</button>
+                </div>
+            </div>
+            <div class="volver">
+                <a href="{{ url_for('main.profile') }}" id="botonvolver">⟵ Volver al panel</a>
+            </div>
+         </form>
+    </main>
+
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script>
+        flatpickr("#fecha_zarpe_select", {
+            dateFormat: "Y-m-d",
+            allowInput: true
+        });
+        flatpickr("#hora_zarpe_select", {
+            enableTime: true,
+            noCalendar: true,
+            dateFormat: "H:i:S",
+            time_24hr: true,
+            enableSeconds: true,
+            allowInput: true
+        });
+    </script>
+  
+    <footer>
+        {% include 'footer.html' %}
+    </footer>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>BARC-CO • Registro de Barco</title>
+</head>
+<body>
+    <header>
+        {% include 'header.html' %}
+    </header>
+    
+    <main>
+        <form class="formregistroenvio" action="{{ url_for('barcos.registrobarco') }}" method="POST">
+            <h1 id="hregistroenvio">Registro de Barcos</h1>
+            <p id="pregistroenvio">Complete los siguientes datos del Barco</p>
+
+            
+            <div id="form-gridenvio">
+                <div class="campoenvio">
+                    <label for="nombre">Nombre:</label>
+                    <input name="nombre" id="nombre" placeholder="Ingrese el nombre del barco..." required></input>
+                </div>
+                
+                <div class="campoenvio">
+                    <label for="capacidad">Capacidad:</label>
+                    <input type="number" name="capacidad" id="capacidad" placeholder="Capacidad en Toneladas" required />
+                    </select>
+                </div>
+                
+                <div class="campoenvio">
+                    <label for="fecha_arribo">Fecha de arribo:</label>
+                    <input type="text" name="fecha_arribo" id="fecha_arribo" placeholder="AAAA-MM-DD" required />
+                </div>
+                
+                <div class="campoenvio">
+                    <label for="hora_arribo">Hora de arribo:</label>
+                    <input type="text" name="hora_arribo" id="hora_arribo" placeholder="HH:MM:SS" required />
+                </div>
+                
+                <div>
+                    <button type="submit" class="botonregistrar">Registrar Barco</button>
+                </div>
+            </div>
+            <div class="volver">
+                <a href="{{ url_for('main.profile') }}" id="botonvolver">⟵ Volver al panel</a>
+            </div>
+        </form>
+    </main>
+
+    <!-- flatpickr CDN para fecha y hora -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script>
+      
+        flatpickr("#fecha_arribo", {
+            dateFormat: "Y-m-d",
+            allowInput: true
+        });
+
+       
+        flatpickr("#hora_arribo", {
+            enableTime: true,
+            noCalendar: true,
+            dateFormat: "H:i:S",
+            time_24hr: true,
+            enableSeconds: true,
+            allowInput: true
+        });
+    </script>
+    <footer>
+        {% include 'footer.html' %}
+    </footer>
+</body>
+</html>
