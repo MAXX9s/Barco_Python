@@ -1184,11 +1184,21 @@ textarea{
 .footer img{
   border-radius: 5px;
 }
+.buttoncancel{
+  text-decoration: none;
+  color: rgb(255, 255, 255);
+  font-size: 0.8em;
+  background-color: rgb(204, 134, 29);
+  border: none;
+  border-radius: 20px;
+  text-align: center;
+  padding: 15px;
 
+}
 .buttonel{
   text-decoration: none;
   color: white;
-  font-size: 1em;
+  font-size: 0.8em;
   background-color: red;
   border: none;
   border-radius: 20px;
@@ -1196,7 +1206,18 @@ textarea{
   
   padding: 15px;
 }
-
+.buttonac{
+  text-decoration: none;
+  color: white;
+  font-size: 0.8em;
+  background-color: green;
+  border: none;
+  border-radius: 20px;
+  text-align: center;
+  margin-bottom: 2em;
+  
+  padding: 15px;
+}
 
 /*About Us*/
 
@@ -1327,3 +1348,19 @@ textarea{
     color: white;
     border: 1px solid #1e7e34;
 }
+.inline-input {
+    width: 100%;
+    padding: 2px 4px;
+
+    font-size: 14px;
+    height: 28px;
+}
+
+.tdtarifa {
+   
+    padding: 2px 4px;
+
+    font-size: 14px;
+    height: 28px;
+}
+
