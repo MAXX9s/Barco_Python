@@ -1,0 +1,3 @@
+GOOGLE_CLIENT_ID=475947239483-bovla10d8obkhu38joao3e67mprliejk.apps.googleusercontent.com
+GOOGLE_CLIENT_SECRET=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
+GOOGLE_REDIRECT_URI=http://localhost:5000/callback
