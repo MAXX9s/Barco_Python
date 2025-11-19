@@ -153,7 +153,7 @@ INSERT OR REPLACE INTO usuario
 (2, 'Nico', 'Gonzalez' , '111', 'nico@gmail.com','2005-01-22', 'Callao 2134', 11234675, 'Administrador'),
 (3, 'Lucas', 'Gonzalez', '222', 'lucas@gmail.com','2005-12-22', 'Riobamba 344', 11651298, 'Encargado de Barcos'),
 (4, 'Maxi', 'Gonzalez','333', 'maxi@gmail.com','2005-09-25', 'Peña 1239',    11347612, 'Encargado de Envios'),
-(5, 'Sebas', 'Gonzalez' ,'444', 'sebas@gmail.com','2000-12-25', 'Corrientes 123',11457454, 'Gerente');
+(5, 'Sebas', 'Gonzalez' ,'444', 'sebas@gmail.com','2000-12-25', 'Corrientes 123',11457454, 'Cliente');
 """)
 
 conn.commit()
