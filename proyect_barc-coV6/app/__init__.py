@@ -20,10 +20,12 @@ def create_app():
 
     from .routes import main, db as db_bp, program
     from app.envios import envios_bp
+    from app.admin import admin_bp
     app.register_blueprint(main)
     app.register_blueprint(db_bp)
     app.register_blueprint(program)
     app.register_blueprint(envios_bp)
+    app.register_blueprint(admin_bp)
     
     from .auth import auth
     app.register_blueprint(auth)

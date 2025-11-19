@@ -1,14 +1,16 @@
 <nav>
+    
     <div class="logo">
         <img src="{{ url_for('static', filename='img/logo.png') }}" alt="logo">
-    </div>
+        
 
+    </div>
     <ul id="menu">
         <li><a href="{{ url_for('main.index') }}">Home</a></li>
         <li><a href="{{ url_for('main.index') }}#aboutus">About us</a></li>
 
         {% if current_user.is_authenticated %}
-            <li><a href="{{ url_for('main.profile') }}">Perfil ({{ current_user.username }})</a></li>
+            <li><a href="{{ url_for('main.profile') }}">Perfil</a></li>
             <li><a href="{{ url_for('auth.logout') }}">Cerrar sesión</a></li>
         {% else %}
         <li><a href="{{ url_for('auth.login_get') }}">Login</a></li>
