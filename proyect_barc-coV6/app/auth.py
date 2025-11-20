@@ -8,14 +8,16 @@ import requests
 from app.db import get_db_connection 
 
 
-from dotenv import load_dotenv
+
 import os
 
-load_dotenv()
 
-CLIENT_ID = os.getenv("CLIENTE_GOOGLE_ID")
-CLIENT_SECRET = os.getenv("CLIENTE_GOOGLE_SECRETO")
-REDIRECT_URI = os.getenv("GOOGLE_REDIRECT_URI")
+
+
+
+CLIENT_ID = os.environ.get("GOOGLE_CLIENT_ID")
+CLIENT_SECRET = os.environ.get("GOOGLE_CLIENT_SECRET")
+REDIRECT_URI = os.environ.get("GOOGLE_REDIRECT_URI")
 
 
 auth = Blueprint("auth", __name__, template_folder="templates")
@@ -138,6 +140,10 @@ def login_google():
         "&access_type=offline"
     )
     return redirect(auth_url)
+
+print("DEBUG CLIENT_ID:", CLIENT_ID)
+print("DEBUG REDIRECT_URI:", REDIRECT_URI)
+
 
 @auth.route("/callback")
 def callback():

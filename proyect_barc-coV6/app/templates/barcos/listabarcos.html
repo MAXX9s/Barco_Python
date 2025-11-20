@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
     <title>Lista de Barcos</title>
+
 </head>
 <body>
 <header>
@@ -39,13 +40,14 @@
                                 <th>Hora Arribo</th>
                                 <th>Fecha Salida</th>
                                 <th>Hora Salida</th>
-                                <th>Impuesto</th>
-                                <th>Tarifa</th>
+                                <th class="tdtarifa">Impuesto</th>
+                                <th class="tdtarifa">Tarifa</th>
+                                <th>Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
                             {% for b in barcos %}
-                            <tr>
+                            <tr id="barco-view-{{ b['id_barco'] }}">
                                 <td class="id-cell">#{{ b['id_barco'] }}</td>
                                 <td class="descripcion-cell">{{ b['nombre'] }}</td>
                                 <td>{{ b['capacidad'] }}</td>
@@ -53,12 +55,50 @@
                                 <td>{{ b['hora_arribo'] or '' }}</td>
                                 <td>{{ b['fecha_zarpe'] or '' }}</td>
                                 <td>{{ b['hora_zarpe'] or '' }}</td>
-                                <td>{{ b['Impuesto'] or '' }}</td>
-                                <td>{{ b['tarifa'] or '' }}</td>
+                                <td class="tdtarifa">{{ b['Impuesto'] or '' }}</td>
+                                <td class="tdtarifa">{{ b['tarifa'] or '' }}</td>
+                                <td class="acciones-cell">
+                                    <button onclick="toggleEdit({{ b['id_barco'] }})" class="buttonac">Editar</button>
+                                    <a href="/eliminarbarco/{{ b.id_barco }}" class="buttonel">Eliminar</a>
+                                </td>
+                            </tr>
+                            <tr id="barco-edit-{{ b['id_barco'] }}" style="display: none;">
+                                <td class="id-cell">#{{ b['id_barco'] }}</td>
+                                <td>
+                                    <form action="{{ url_for('barcos.editarbarco') }}" method="POST" class="inline-form" id="form-{{ b['id_barco'] }}">
+                                        <input type="hidden" name="id_barco" value="{{ b['id_barco'] }}">
+                                        <input type="text" name="nombre" value="{{ b['nombre'] }}" class="inline-input" required>
+                                </td>
+                                <td>
+                                        <input type="number" name="capacidad" value="{{ b['capacidad'] }}" class="inline-input" required>
+                                </td>
+                                <td>
+                                        <input type="date" name="fecha_arribo" value="{{ b['fecha_arribo'] or '' }}" class="inline-input" required>
+                                </td>
+                                <td>
+                                        <input type="time" name="hora_arribo" value="{{ b['hora_arribo'] or '' }}" class="inline-input" required>
+                                </td>
+                                <td>
+                                        <input type="date" name="fecha_zarpe" value="{{ b['fecha_zarpe'] or '' }}" class="tdtarifa" required>
+                                </td>
+                                <td>
+                                        <input type="time" name="hora_zarpe" value="{{ b['hora_zarpe'] or '' }}" class="tdtarifa" required>
+                                </td>
+                                <td>
+                                        <input type="number" step="0.01" name="Impuesto" value="{{ b['Impuesto'] or '' }}" class="tdtarifa" required>
+                                </td>
+                                <td>
+                                        <input type="number" step="0.01" name="tarifa" value="{{ b['tarifa'] or '' }}" class="inline-input" required>
+                                </td>
+                                <td class="acciones-cell">
+                                        <button type="submit" class="buttonac guardar">Guardar</button>
+                                        <button type="button" onclick="toggleEdit({{ b['id_barco'] }})" class="buttoncancel">Cancelar</button>
+                                    </form>
+                                </td>
                             </tr>
                             {% else %}
                             <tr>
-                                <td colspan="9" class="no-data">
+                                <td colspan="10" class="no-data">
                                     <div class="no-envios">
                                         <h3>No hay barcos registrados</h3>
                                         <p>Comienza registrando tu primer barco en el sistema</p>
@@ -77,5 +117,22 @@
     <footer>
         {% include 'footer.html' %}
     </footer>
+
+    <script>
+        function toggleEdit(barcoId) {
+            const viewRow = document.getElementById('barco-view-' + barcoId);
+            const editRow = document.getElementById('barco-edit-' + barcoId);
+            
+            if (viewRow.style.display === 'none') {
+                // vista normal je
+                viewRow.style.display = '';
+                editRow.style.display = 'none';
+            } else {
+                // muestra el boton editar xd
+                viewRow.style.display = 'none';
+                editRow.style.display = '';
+            }
+        }
+    </script>
 </body>
 </html>
