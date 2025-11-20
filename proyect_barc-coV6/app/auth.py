@@ -13,9 +13,11 @@ import os
 
 
 
-CLIENT_ID = os.getenv("CLIENTE_GOOGLE_ID")
-CLIENT_SECRET = os.getenv("CLIENTE_GOOGLE_SECRETO")
-REDIRECT_URI = os.getenv("GOOGLE_REDIRECT_URI")
+
+
+CLIENT_ID = os.environ.get("GOOGLE_CLIENT_ID")
+CLIENT_SECRET = os.environ.get("GOOGLE_CLIENT_SECRET")
+REDIRECT_URI = os.environ.get("GOOGLE_REDIRECT_URI")
 
 
 auth = Blueprint("auth", __name__, template_folder="templates")
