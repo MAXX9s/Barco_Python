@@ -3,9 +3,9 @@
         <img src="{{ url_for('static', filename='img/logo.png') }}" alt="logo">
     </div>
     <ul id="menu">
-        <li><a href="{{ url_for('main.index') }}">Home</a></li>
-        <li><a href="{{ url_for('main.index') }}#aboutus">About us</a></li>
-
+        <li><a href="{{ url_for('main.index') }}">Inicio</a></li>
+        <li><a href="{{ url_for('main.index') }}#aboutus">Quienes somos</a></li>
+  
         {% if current_user.is_authenticated %}
             {% if current_user.tipo == "cliente" %}
                 <li><a href="{{ url_for('main.clientes') }}">Contacto</a></li>

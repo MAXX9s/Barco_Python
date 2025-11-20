@@ -144,7 +144,7 @@ def subir():
         conn.close()
 
         flash("Tu mensaje fue enviado correctamente. ¡Gracias por contactarnos!", "success")
-        return redirect(url_for('main.form'))
+        return redirect(url_for('main.clientes'))
 
     except Exception as e:
         flash(f"Error al enviar mensaje: {str(e)}", "error")

@@ -5,7 +5,7 @@ import sqlite3
 import bcrypt
 from werkzeug.security import generate_password_hash
 admin_bp = Blueprint('admin', __name__, template_folder='templates')
-
+#Validacion de administrador 
 def requiere_administrador(func):
     def wrapper(*args, **kwargs):
         if not hasattr(current_user, 'tipo') or current_user.tipo.strip().lower() != 'administrador':
@@ -13,7 +13,7 @@ def requiere_administrador(func):
         return func(*args, **kwargs)
     wrapper.__name__ = func.__name__
     return wrapper
-
+#Atraves de un Form crear un usuario 
 @admin_bp.route("/gestionusuarios", methods=["GET", "POST"])
 @login_required
 @requiere_administrador
@@ -68,7 +68,7 @@ def gestionusuarios():
     
     else:
         return render_template("admin/gestionusuarios.html")
-
+#Def Editar Cargo del Usuario 
 @admin_bp.route("/modificarusuario", methods=["POST"])
 @login_required
 @requiere_administrador
@@ -125,7 +125,7 @@ def modificarusuario():
     except Exception as e:
         flash(f"Error al actualizar usuario: {str(e)}", "error")
         return redirect(request.referrer)
-
+#Def Visualizar Lista de usuarios 
 @admin_bp.route("/listausuarios")
 @login_required
 @requiere_administrador
@@ -135,7 +135,7 @@ def listausuarios():
     usuarios = conn.execute("SELECT * FROM usuario").fetchall()
     conn.close()
     return render_template("admin/listausuarios.html", usuarios=usuarios)
-
+#Def Eliminar con id 
 @admin_bp.route("/eliminarusuario/<int:user_id>")
 @login_required
 @requiere_administrador
