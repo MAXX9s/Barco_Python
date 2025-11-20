@@ -8,10 +8,10 @@ import requests
 from app.db import get_db_connection 
 
 
-from dotenv import load_dotenv
+
 import os
 
-load_dotenv()
+
 
 CLIENT_ID = os.getenv("CLIENTE_GOOGLE_ID")
 CLIENT_SECRET = os.getenv("CLIENTE_GOOGLE_SECRETO")
