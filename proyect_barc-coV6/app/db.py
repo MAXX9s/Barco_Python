@@ -103,6 +103,16 @@ def init_db():
 
     # CREACION TABLA USUARIO
     cursor.execute("""
+   CREATE TABLE IF NOT EXISTS contacto (
+    id_contacto INTEGER PRIMARY KEY AUTOINCREMENT,
+    id_usuario INTEGER NOT NULL,
+    username TEXT NOT NULL,
+    mensaje TEXT NOT NULL,
+    fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY(id_usuario) REFERENCES usuarios(id_usuario)
+    );
+    """)
+    cursor.execute("""
     CREATE TABLE IF NOT EXISTS usuario (
       id_usuario INTEGER PRIMARY KEY,
       nombre TEXT NOT NULL,

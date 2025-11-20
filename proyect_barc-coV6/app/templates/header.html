@@ -1,19 +1,20 @@
 <nav>
-    
     <div class="logo">
         <img src="{{ url_for('static', filename='img/logo.png') }}" alt="logo">
-        
-
     </div>
     <ul id="menu">
         <li><a href="{{ url_for('main.index') }}">Home</a></li>
         <li><a href="{{ url_for('main.index') }}#aboutus">About us</a></li>
 
         {% if current_user.is_authenticated %}
-            <li><a href="{{ url_for('main.profile') }}">Perfil</a></li>
+            {% if current_user.tipo == "cliente" %}
+                <li><a href="{{ url_for('main.clientes') }}">Contacto</a></li>
+            {% else %}
+                <li><a href="{{ url_for('main.profile') }}">Perfil</a></li>
+            {% endif %}
             <li><a href="{{ url_for('auth.logout') }}">Cerrar sesión</a></li>
         {% else %}
-        <li><a href="{{ url_for('auth.login_get') }}">Login</a></li>
+            <li><a href="{{ url_for('auth.login_get') }}">Login</a></li>
             <li><a href="{{ url_for('main.form') }}">Registrarse</a></li>
         {% endif %}
     </ul>

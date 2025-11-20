@@ -278,10 +278,7 @@ hr{
   width: 100%;
 }
 
-.campo {
-  display: flex;
-  flex-direction: column;
-}
+
 
 .formlog2 input,
 .select {
@@ -422,6 +419,79 @@ hr{
   color: #1a1a1a;                  
   transform: translateY(-2px);
 }
+/*Contacto*/
+#h1con{
+  margin-top:180px;
+  text-align: center;
+  color: #34495e;
+  font-family: "Roboto", sans-serif;
+  font-size: 2rem;
+}
+#hrcon {
+  padding: 5px 0 0 0;
+  color: black;
+  font-family: sans-serif;
+  text-align: center;
+  font-size: 2rem;
+  margin-top: 0px;
+}
+
+.formcon {
+  background-color: #f6f5f2;
+  max-width: 1000px;
+  padding: 50px 30px;
+  margin: 3rem auto 8rem auto;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  border-radius: 30px;
+  justify-content: center;
+  text-align: center;
+}
+
+.formcon textarea {
+  margin-top: 6px;
+  width: 500px;
+ height: 100px;
+  border: none;
+  border-radius: 20px;
+  font-size: 0.85em;
+  font-family: sans-serif;
+  border-radius: 8px;
+  padding-left: 8px;
+}
+
+.formcon label {
+  font-size: 0.9em;
+  color: black;
+  font-weight: 600;
+}
+
+.formcon button {
+  height: 45px;
+
+  width: 200px;
+  margin-top: 40px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.9em;
+  font-weight: bold;
+  background-color: #9beaf2;
+  border:none;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.formcon button:hover {
+  background-color: #06cae0;
+  transform: scale(1.05);
+}
+
+
+
+
+
+
+
 
 /*Servicios*/
 

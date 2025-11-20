@@ -1,5 +1,5 @@
 import bcrypt
-from flask import Blueprint, render_template, request
+from flask import Blueprint, flash, redirect, render_template, request, url_for
 import sqlite3
 from flask_login import login_required, current_user
 from app.db import get_db_connection
@@ -109,3 +109,43 @@ def submit():
 @main.app_errorhandler(404)
 def page_not_found(e):
     return render_template("404.html"), 404
+
+#Cliente
+
+@main.route("/cliente")
+@login_required
+def clientes():
+    
+    return render_template("contacto.html")
+
+@main.route("/contacto/enviar", methods=["POST"])
+@login_required
+def subir():
+    try:
+        mensaje = request.form.get("mensaje", "").strip()
+
+        if not mensaje:
+            flash("Por favor escribí un mensaje.", "error")
+            return redirect(url_for('main.form'))
+
+        conn = get_db_connection()
+        cursor = conn.cursor()
+
+        cursor.execute("""
+            INSERT INTO contacto (id_usuario, username, mensaje)
+            VALUES (?, ?, ?)
+        """, (
+            current_user.id,
+            current_user.username,
+            mensaje
+        ))
+
+        conn.commit()
+        conn.close()
+
+        flash("Tu mensaje fue enviado correctamente. ¡Gracias por contactarnos!", "success")
+        return redirect(url_for('main.form'))
+
+    except Exception as e:
+        flash(f"Error al enviar mensaje: {str(e)}", "error")
+        return redirect(url_for('main.clientes'))
