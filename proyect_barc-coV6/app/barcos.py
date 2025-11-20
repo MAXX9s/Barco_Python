@@ -142,3 +142,52 @@ def eliminarbarco(id_barco):
     except Exception as e:
         flash(f"Error al eliminar el Barco: {str(e)}", "error")
         return redirect(url_for('barcos.listabarcos'))
+
+@barcos_bp.route("/editarbarco", methods=["POST"])
+@login_required
+@requiere_encargado_barcos
+def editarbarco():
+    try:
+        id_barco = request.form.get("id_barco")
+        nombre = request.form.get("nombre", "").strip()
+        capacidad = request.form.get("capacidad", "").strip()
+        fecha_arribo = request.form.get("fecha_arribo", "").strip()
+        hora_arribo = request.form.get("hora_arribo", "").strip()
+        fecha_zarpe = request.form.get("fecha_zarpe", "").strip()
+        hora_zarpe = request.form.get("hora_zarpe", "").strip()
+        tarifa = request.form.get("tarifa", "").strip()
+        impuesto = request.form.get("Impuesto", "").strip()
+
+        # valida que todos los campos estem
+        if not all([id_barco, nombre, capacidad, fecha_arribo, hora_arribo, fecha_zarpe, hora_zarpe, tarifa, impuesto]):
+            flash("Todos los campos son obligatorios", "error")
+            return redirect(url_for('barcos.listabarcos'))
+
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        
+        # verifica que el barco existe
+        cursor.execute("SELECT id_barco FROM barco WHERE id_barco = ?", (id_barco,))
+        if not cursor.fetchone():
+            flash("Barco no encontrado", "error")
+            conn.close()
+            return redirect(url_for('barcos.listabarcos'))
+
+        # actualizar el barco
+        cursor.execute(""" 
+            UPDATE barco 
+            SET nombre = ?, capacidad = ?, fecha_arribo = ?, hora_arribo = ?,
+                fecha_zarpe = ?, hora_zarpe = ?, tarifa = ?, Impuesto = ?
+            WHERE id_barco = ?
+        """, (nombre, capacidad, fecha_arribo, hora_arribo, 
+              fecha_zarpe, hora_zarpe, tarifa, impuesto, id_barco))
+        
+        conn.commit()
+        conn.close()
+
+        flash("Barco actualizado exitosamente", "success")
+        return redirect(url_for('barcos.listabarcos'))
+        
+    except Exception as e:
+        flash(f"Error al actualizar barco: {str(e)}", "error")
+        return redirect(url_for('barcos.listabarcos'))
