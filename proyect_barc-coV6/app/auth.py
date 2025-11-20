@@ -139,6 +139,10 @@ def login_google():
     )
     return redirect(auth_url)
 
+print("DEBUG CLIENT_ID:", CLIENT_ID)
+print("DEBUG REDIRECT_URI:", REDIRECT_URI)
+
+
 @auth.route("/callback")
 def callback():
     code = request.args.get("code")
